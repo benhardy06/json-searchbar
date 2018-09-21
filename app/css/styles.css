@@ -1,0 +1,19 @@
+body, #main, .view{
+    height:100vh;
+}
+.form-group{
+    position:absolute;
+    top:0;right:0;left:0;bottom:0;
+    margin:auto;
+    width:500px;
+    height:100px;
+}
+
+.form-group input{
+    width:500px;
+    border: 1px solid #333333;
+}
+
+.highlight{
+    background-color:yellow;
+}
