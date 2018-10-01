@@ -93,8 +93,6 @@ app.service('searchJson', function($window, _, $sce) {
             for (var j = 0; j < items.length; j++) {
                 var regex = new RegExp(word, 'g');
                     var title = _.toLower(items[j].name);
-                    var description = _.toLower(items[j].tutorialDescription);
-                    var outline = _.toLower(items[j].tutorialOutline);
 
                 count += (title.match(regex) || []).length
                 if (title.search(word) != -1) {
@@ -104,9 +102,6 @@ app.service('searchJson', function($window, _, $sce) {
                 } else {
                     items[j].titleArr.push(false);
                 }
-                count += (description.match(regex) || []).length;
-                count += (outline.match(regex) || []).length;
-                
                 items[j].count = count;
                 count = 0;
             }
@@ -134,38 +129,20 @@ app.service('searchJson', function($window, _, $sce) {
     function highlightString(items, words) {
         _.forEach(items, function(item) {
                 var str = item.name;
-                var strDesc = item.about;
-            
+                console.log(words)
             for (var i = 0; i < words.length; i++) {
                 var pattern = (words[i].trim()).toLowerCase()
-                if (pattern.length > 1) {
+                
                     str = item.name;
                     var reg = new RegExp("(\\b(?!class=)\w*" + pattern + "\w*)", "gi");//match pattern ignore class=
                     str = str.replace(reg, '<span class="highlight">$1</span>')
-                    strDesc = strDesc.replace(reg, '<span class="highlight">$1</span>')
-                }
+                
                     item.name = str
-                    item.tutorialDescription = strDesc
+                    
             }
 
         })
         return items
     }
-
-    // function copyTitleForEveryTag(catalogue, titles) {
-    //     var copiedTitles = [];
-    //     var tagsById = _.keyBy(catalogue.tags, 'id');
-    //
-    //     _.forEach(titles, function(title) {
-    //         _.forEach(title.tags, function(tag) {
-    //             var titleCopy = _.cloneDeep(title);
-    //             titleCopy.parentTag = tag;
-    //             titleCopy.parentTag.name = _.get(tagsById, [tag.id, 'name']);
-    //             copiedTitles.push(titleCopy);
-    //         });
-    //     });
-    //
-    //     return copiedTitles;
-    // }
 
 })
